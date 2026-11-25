@@ -9,12 +9,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class PemesananController extends Controller
 {
     public function create(Event $event)
     {
-        return view('pemesanan.create', compact('event'));
+        $event->load('organizer');
+        return Inertia::render('Pemesanan/Create', [
+            'event' => $event,
+        ]);
     }
 
     public function store(Request $request, Event $event)
@@ -73,6 +77,8 @@ class PemesananController extends Controller
             ->latest('tanggal_pemesanan')
             ->get();
 
-        return view('tiket.saya', compact('pemesananList'));
+        return Inertia::render('Tiket/Saya', [
+            'pemesananList' => $pemesananList,
+        ]);
     }
 }

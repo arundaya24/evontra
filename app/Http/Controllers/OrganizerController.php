@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Organizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class OrganizerController extends Controller
 {
     public function create()
     {
-        return view('organizer.create');
+        return Inertia::render('Organizer/Create');
     }
 
     public function store(Request $request)

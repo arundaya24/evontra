@@ -18,7 +18,9 @@ class EventController extends Controller
             ->orderBy('tanggal_event')
             ->get();
 
-        return view('event.beranda', compact('rekomendasi'));
+        return Inertia::render('Beranda', [
+            'rekomendasi' => $rekomendasi,
+        ]);
     }
 
     // Alur Jelajahi Event: pencarian & filter kategori
@@ -34,12 +36,19 @@ class EventController extends Controller
             $query->where('kategori', $request->kategori);
         }
 
-        $events = $query->orderBy('tanggal_event')->paginate(9);
+        $events = $query->orderBy('tanggal_event')->paginate(9)->withQueryString();
         $kategoriList = Event::where('status', 'dipublikasikan')
             ->distinct()
             ->pluck('kategori');
 
-        return view('event.jelajahi', compact('events', 'kategoriList'));
+        return Inertia::render('Event/Jelajahi', [
+            'events'       => $events,
+            'kategoriList' => $kategoriList,
+            'filters'      => [
+                'q'        => $request->input('q', ''),
+                'kategori' => $request->input('kategori', ''),
+            ],
+        ]);
     }
 
     // Alur Buat Event
@@ -51,7 +60,7 @@ class EventController extends Controller
                 ->with('info', 'Silakan lengkapi profil organizer terlebih dahulu.');
         }
 
-        return view('event.create');
+        return Inertia::render('Event/Create');
     }
 
     public function store(Request $request)
