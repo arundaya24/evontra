@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->increments('id_tiket');
             $table->unsignedInteger('id_pemesanan');
             $table->string('kode_qr')->unique();
-            $table->string('status')->default('aktif'); // aktif / terpakai
+            $table->string('status')->default('aktif');
             $table->timestamps();
 
             $table->foreign('id_pemesanan')

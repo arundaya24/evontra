@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer('kuota_tiket');
             $table->string('poster')->nullable();
             $table->boolean('is_rekomendasi')->default(false);
-            $table->string('status')->default('draft'); // draft / dipublikasikan
+            $table->string('status')->default('draft');
             $table->timestamps();
 
             $table->foreign('id_organizer')

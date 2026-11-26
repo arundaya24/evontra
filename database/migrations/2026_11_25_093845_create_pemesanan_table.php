@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->integer('jumlah_tiket');
             $table->decimal('total_harga', 12, 2);
             $table->dateTime('tanggal_pemesanan');
-            $table->string('status')->default('menunggu'); // menunggu / lunas / batal
+            $table->string('status')->default('menunggu');
             $table->timestamps();
 
             $table->foreign('id_pengguna')
