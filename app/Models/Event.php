@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $table = 'event';
+
     protected $primaryKey = 'id_event';
 
     protected $fillable = [
@@ -24,8 +25,8 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'tanggal_event'  => 'date',
-        'harga_tiket'    => 'decimal:2',
+        'tanggal_event' => 'date',
+        'harga_tiket' => 'decimal:2',
         'is_rekomendasi' => 'boolean',
     ];
 
