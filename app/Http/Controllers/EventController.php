@@ -9,7 +9,6 @@ use Inertia\Inertia;
 
 class EventController extends Controller
 {
-    // Alur Beranda: event rekomendasi yang dipublikasikan
     public function beranda()
     {
         $rekomendasi = Event::with('organizer')
@@ -23,7 +22,6 @@ class EventController extends Controller
         ]);
     }
 
-    // Alur Jelajahi Event: pencarian & filter kategori
     public function jelajahi(Request $request)
     {
         $query = Event::with('organizer')->where('status', 'dipublikasikan');
@@ -51,7 +49,6 @@ class EventController extends Controller
         ]);
     }
 
-    // Alur Buat Event
     public function create()
     {
         $organizer = Auth::user()->organizer;

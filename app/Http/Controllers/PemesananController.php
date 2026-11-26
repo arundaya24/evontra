@@ -36,7 +36,7 @@ class PemesananController extends Controller
                 'jumlah_tiket'      => $data['jumlah_tiket'],
                 'total_harga'       => $totalHarga,
                 'tanggal_pemesanan' => now(),
-                'status'            => 'menunggu', // menunggu / lunas / batal
+                'status'            => 'menunggu',
             ]);
 
             $event->decrement('kuota_tiket', $data['jumlah_tiket']);
@@ -47,7 +47,6 @@ class PemesananController extends Controller
         return redirect()->route('tiket.saya')->with('success', 'Pemesanan dibuat. Silakan selesaikan pembayaran.');
     }
 
-    // Simulasi konfirmasi pembayaran -> generate E-Ticket dengan kode_qr unik
     public function bayar(Pemesanan $pemesanan)
     {
         abort_unless($pemesanan->id_pengguna === Auth::id(), 403);
@@ -60,7 +59,7 @@ class PemesananController extends Controller
                     Tiket::create([
                         'id_pemesanan' => $pemesanan->id_pemesanan,
                         'kode_qr'      => 'TIX-' . strtoupper(Str::random(10)) . '-' . $pemesanan->id_pemesanan . ($i + 1),
-                        'status'       => 'aktif', // aktif / terpakai
+                        'status'       => 'aktif',
                     ]);
                 }
             }
@@ -69,7 +68,6 @@ class PemesananController extends Controller
         return redirect()->route('tiket.saya')->with('success', 'Pembayaran lunas! E-Ticket telah terbit.');
     }
 
-    // Alur Tiket Saya
     public function tiketSaya()
     {
         $pemesananList = Pemesanan::with(['event', 'tiket'])
