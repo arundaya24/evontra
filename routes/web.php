@@ -13,13 +13,11 @@ Route::get('/jelajahi', [EventController::class, 'jelajahi'])->name('event.jelaj
 Route::get('/bantuan', [InfoController::class, 'bantuan'])->name('bantuan');
 Route::get('/tentang-kami', [InfoController::class, 'tentangKami'])->name('tentang');
 
-// Autentikasi
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Fitur terautentikasi
 Route::middleware('auth')->group(function () {
     Route::get('/organizer/daftar', [OrganizerController::class, 'create'])->name('organizer.create');
     Route::post('/organizer/daftar', [OrganizerController::class, 'store'])->name('organizer.store');
